@@ -1,6 +1,8 @@
 package com.player.presentation.module
 
 import android.content.Context
+import androidx.media3.common.AudioAttributes
+import androidx.media3.common.C
 import androidx.media3.exoplayer.ExoPlayer
 import com.player.presentation.player.repository.PlaybackController
 import com.player.presentation.player.repository.impl.PlaybackControllerImpl
@@ -17,7 +19,14 @@ object Exoplayer {
 
     @Provides
     @Singleton
-    fun providesExoplayer(@ApplicationContext context: Context) = ExoPlayer.Builder(context).build()
+    fun providesExoplayer(@ApplicationContext context: Context) = ExoPlayer.Builder(context)
+        .setAudioAttributes(
+            AudioAttributes.Builder()
+                .setUsage(C.USAGE_MEDIA)
+                .setContentType(C.AUDIO_CONTENT_TYPE_MUSIC)
+                .build(),
+            true
+        ).build()
 
     @Provides
     @Singleton
